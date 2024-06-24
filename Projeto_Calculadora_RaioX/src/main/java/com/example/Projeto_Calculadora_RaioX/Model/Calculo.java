@@ -1,14 +1,15 @@
 package com.example.Projeto_Calculadora_RaioX.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Entity
+@Data
 public class Calculo {
+
+
 
     //Valores que o usuário irá alterar
     private double kv;
@@ -25,6 +26,12 @@ public class Calculo {
     private double rendimento;
     private double referencia;
     private double dff;
+
+    private double soma;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     public void setRegiao(String regiao ){
         this.regiao = regiao;
