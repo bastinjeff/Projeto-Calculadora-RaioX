@@ -87,7 +87,6 @@ public class Calculo {
 
     private double calcularBSC() {
         double kvArredondado = Math.floor(kv / 10) * 10;
-        System.out.println("Kv arredondado: " + kvArredondado);
 
         ValoresBSC valorEnum = ValoresBSC.fromChave(kvArredondado);
 
@@ -98,7 +97,7 @@ public class Calculo {
     }
 
     private double CalcularEsak() {
-        System.out.println("kv: "+ kv + ", redimento:" + rendimento + " bsc:" + bsc);
+
         return this.rendimento * Math.pow(80 / (this.dff - this.espessura), 2) * this.mAs * this.bsc;
     }
 
