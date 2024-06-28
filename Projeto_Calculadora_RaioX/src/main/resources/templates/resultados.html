@@ -14,7 +14,6 @@
             margin: 0;
             color: #17a2b8;
         }
-
         .centered-results {
             background: #fff;
             padding: 20px;
@@ -23,11 +22,13 @@
             max-width: 600px;
             margin: 20px auto;
         }
+        .results-table {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-<div th:replace="Navbar/navbar :: navbar">
-</div>
+<div th:replace="Navbar/navbar :: navbar"></div>
 <div class="header">
     <h1>Resultados do Cálculo</h1>
 </div>
@@ -63,11 +64,42 @@
             <a href="/calculos/calcular" class="btn btn-info">Novo Cálculo</a>
         </div>
     </div>
+
+    <div class="results-table">
+        <h2 class="text-center mt-5">Cálculos Anteriores</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Região</th>
+                <th>kV</th>
+                <th>mAs</th>
+                <th>Espessura</th>
+                <th>ESAK</th>
+                <th>Diferença</th>
+                <th>Rendimento</th>
+                <th>BSC</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="calculoAnterior : ${calculos}">
+                <td th:text="${calculoAnterior.id}"></td>
+                <td th:text="${calculoAnterior.regiao}"></td>
+                <td th:text="${calculoAnterior.kv}"></td>
+                <td th:text="${calculoAnterior.mAs}"></td>
+                <td th:text="${calculoAnterior.espessura}"></td>
+                <td th:text="${calculoAnterior.esak}"></td>
+                <td th:text="${calculoAnterior.diferenca}"></td>
+                <td th:text="${calculoAnterior.rendimento}"></td>
+                <td th:text="${calculoAnterior.bsc}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
