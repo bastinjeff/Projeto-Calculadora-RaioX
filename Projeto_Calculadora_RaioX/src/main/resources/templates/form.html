@@ -36,7 +36,8 @@
             <div class="form-group row">
                 <label for="comboBox" class="col-sm-4 col-form-label">Região:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="comboBox" name="regiao">
+                    <select class="form-control" id="comboBox" name="regiao" required>
+                        <option value="">Selecione uma região</option>
                         <option value="Cranio-AP">Cranio-AP</option>
                         <option value="Cranio-L">Cranio-L</option>
                         <option value="Tórax-PA">Tórax-PA</option>
@@ -52,23 +53,23 @@
             <div class="form-group row">
                 <label for="kv-label" class="col-sm-4 col-form-label">Kv:</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="kv-label" name="kv" placeholder="Insira um valor">
+                    <input type="number" class="form-control" id="kv-label" name="kv" placeholder="Insira um valor" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="mAs-label" class="col-sm-4 col-form-label">mAs:</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="mAs-label" name="mAs" placeholder="Insira um valor">
+                    <input type="number" class="form-control" id="mAs-label" name="mAs" placeholder="Insira um valor" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="espessura-label" class="col-sm-4 col-form-label">Espessura:</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="espessura-label" name="espessura" placeholder="Insira um valor">
+                    <input type="number" class="form-control" id="espessura-label" name="espessura" placeholder="Insira um valor" required>
                 </div>
             </div>
             <div class="text-center">
-                <button type="button" class="btn btn-info" onclick="submitForm()">Calcular</button>
+                <button type="submit" class="btn btn-info">Calcular</button>
             </div>
         </form>
     </div>
@@ -79,19 +80,19 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="resultadoModalLabel">Resultado do Cálculo</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>ESAK: <span th:text="${calculo.esak}"></span></p>-->
-<!--                <p>Diferença: <span th:text="${calculo.diferenca}"></span></p>-->
-<!--                <p>Rendimento: <span th:text="${calculo.rendimento}"></span></p>-->
-<!--                <p>bsc: <span th:text="${calculo.bsc}"></span></p>-->
+            <!--            <div class="modal-header">-->
+            <!--                <h5 class="modal-title" id="resultadoModalLabel">Resultado do Cálculo</h5>-->
+            <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">-->
+            <!--                    <span aria-hidden="true">&times;</span>-->
+            <!--                </button>-->
+            <!--            </div>-->
+            <!--            <div class="modal-body">-->
+            <!--                <p>ESAK: <span th:text="${calculo.esak}"></span></p>-->
+            <!--                <p>Diferença: <span th:text="${calculo.diferenca}"></span></p>-->
+            <!--                <p>Rendimento: <span th:text="${calculo.rendimento}"></span></p>-->
+            <!--                <p>bsc: <span th:text="${calculo.bsc}"></span></p>-->
 
-<!--            </div>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>
@@ -100,15 +101,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    function submitForm() {
-        document.getElementById("calculoForm").submit();
-    }
-
-
-    $(document).ready(function () {
-
-    });
-</script>
 </body>
 </html>
