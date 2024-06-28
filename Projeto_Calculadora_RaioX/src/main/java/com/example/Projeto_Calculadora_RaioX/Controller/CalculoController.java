@@ -18,7 +18,8 @@ public class CalculoController {
     @PostMapping("/calcular")
     public String calcular(@ModelAttribute Calculo calculo, Model model) {
         calculo.Calcular();
+        model.addAttribute("calculo", calculo);
 
-        return "form";
+        return "resultados";
     }
 }

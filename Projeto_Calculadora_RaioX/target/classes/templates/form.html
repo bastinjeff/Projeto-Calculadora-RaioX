@@ -26,7 +26,8 @@
     </style>
 </head>
 <body>
-<div class="header">
+
+<div class="" th:replace="Navbar/navbar :: navbar">
     <h1>CalcRaioX</h1>
 </div>
 <div class="container mt-5">
@@ -78,19 +79,19 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="resultadoModalLabel">Resultado do Cálculo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>ESAK: <span th:text="${calculo.esak}"></span></p>
-                <p>Diferença: <span th:text="${calculo.diferenca}"></span></p>
-                <p>Rendimento: <span th:text="${calculo.rendimento}"></span></p>
-                <p>bsc: <span th:text="${calculo.bsc}"></span></p>
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="resultadoModalLabel">Resultado do Cálculo</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <p>ESAK: <span th:text="${calculo.esak}"></span></p>-->
+<!--                <p>Diferença: <span th:text="${calculo.diferenca}"></span></p>-->
+<!--                <p>Rendimento: <span th:text="${calculo.rendimento}"></span></p>-->
+<!--                <p>bsc: <span th:text="${calculo.bsc}"></span></p>-->
 
-            </div>
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -104,9 +105,9 @@
         document.getElementById("calculoForm").submit();
     }
 
-    // Exibir o modal após a página ser carregada (opcional)
+
     $(document).ready(function () {
-        $('#resultadoModal').modal('show');
+
     });
 </script>
 </body>

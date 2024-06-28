@@ -32,6 +32,8 @@ public class Calculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    //Setamos os valores do dff e da referencia de acordo com a Região em que o usuario escolher.
     public void setRegiao(String regiao) {
         this.regiao = regiao;
 
@@ -81,6 +83,7 @@ public class Calculo {
 
     }
 
+    
     private double calcularRendimento(double kv) {
         return (0.0038 * kv - 0.1193);
     }
