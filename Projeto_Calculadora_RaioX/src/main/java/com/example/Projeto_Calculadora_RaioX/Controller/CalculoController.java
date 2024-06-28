@@ -41,8 +41,15 @@ public class CalculoController {
         return "home";
     }
 
+    @GetMapping("/logCalculo")
+    public String showLogCalculo (Model model,Calculo calculo){
+        List<Calculo> calculos = calculoRepository.findAll();
+        model.addAttribute("calculos", calculos);
+        return "logCalculo";
+    }
+
     @GetMapping("jafeitos")
-    public String showResultados(Model model, Calculo calculo){
+    public String showResultados(Model model){
 
         List<Calculo> calculos = calculoRepository.findAll();
         model.addAttribute("calculos", calculos);
