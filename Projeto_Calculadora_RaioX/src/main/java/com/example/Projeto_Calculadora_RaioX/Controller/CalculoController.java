@@ -42,7 +42,11 @@ public class CalculoController {
     }
 
     @GetMapping("jafeitos")
-    public String showResultados(){
+    public String showResultados(Model model, Calculo calculo){
+
+        List<Calculo> calculos = calculoRepository.findAll();
+        model.addAttribute("calculos", calculos);
+
         return "resultados";
     }
 }
