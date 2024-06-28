@@ -35,4 +35,14 @@ public class CalculoController {
 
         return "resultados";
     }
+
+    @GetMapping("/")
+    public String showHome (){
+        return "home";
+    }
+
+    @GetMapping("jafeitos")
+    public String showResultados(){
+        return "resultados";
+    }
 }
