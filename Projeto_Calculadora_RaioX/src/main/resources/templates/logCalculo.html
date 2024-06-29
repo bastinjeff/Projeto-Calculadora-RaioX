@@ -12,7 +12,7 @@
         }
         .header h1 {
             margin: 0;
-            color: #17a2b8;
+            color: #1E90FF;
         }
         .centered-results {
             background: #fff;
@@ -28,9 +28,17 @@
         .filter-container {
             margin: 20px 0;
         }
-        .col-sm-3{
+        .filter-regiao{
             margin-left: -50px;
         }
+        .filtro-kv{
+            margin-left: 300px;
+        }
+        .filter-kv{
+            margin-top: -36px;
+            margin-left: 820px;
+        }
+
 
     </style>
 </head>
@@ -38,14 +46,18 @@
 <div th:replace="Navbar/navbar :: navbar"></div>
 <div class="container mt-4">
     <div class="header">
-        <h1>Resultados do Cálculo</h1>
+        <h1>Calculos Anteriores</h1>
     </div>
     <div class="results-table">
-        <h2 class="text-center mt-5">Cálculos Anteriores</h2>
+        <h2 class="text-center mt-5"></h2>
         <div class="filter-container form-group row">
             <label for="filter" class="col-sm-2 col-form-label">Filtrar por Região:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-3 filter-regiao">
                 <input type="text" id="filter" class="form-control" placeholder="Digite a região">
+            </div>
+            <label for="filter-kv" class="col-sm-2 col-form-label filtro-kv">Filtrar por kV:</label>
+            <div class="col-sm-3 filter-kv">
+                <input type="text" id="filter-kv" class="form-control" placeholder="Digite o kV">
             </div>
         </div>
         <table class="table table-bordered">
@@ -84,17 +96,27 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById('filter').addEventListener('input', function() {
-        var filter = this.value.toLowerCase();
+        filterTable();
+    });
+
+    document.getElementById('filter-kv').addEventListener('input', function() {
+        filterTable();
+    });
+
+    function filterTable() {
+        var filterRegiao = document.getElementById('filter').value.toLowerCase();
+        var filterKv = document.getElementById('filter-kv').value.toLowerCase();
         var rows = document.querySelectorAll('#calculos-tbody tr');
         rows.forEach(function(row) {
             var regiao = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-            if (regiao.includes(filter)) {
+            var kv = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            if (regiao.includes(filterRegiao) && kv.includes(filterKv)) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
             }
         });
-    });
+    }
 </script>
 </body>
 </html>
