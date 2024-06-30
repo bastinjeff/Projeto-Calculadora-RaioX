@@ -1,4 +1,4 @@
-package com.example.Projeto_Calculadora_RaioX.Controller;
+package com.example.Projeto_Calculadora_RaioX.controller;
 
 import com.example.Projeto_Calculadora_RaioX.models.dto.UserDto;
 import com.example.Projeto_Calculadora_RaioX.models.entity.User;
@@ -68,7 +68,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") UserDto dto) {
         try{
-            dto.setRole(UserRole.PENDING);
+            dto.setRoles(UserRole.PENDING);
             User user = modelMapper.map(dto, User.class);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.saveUser(user);

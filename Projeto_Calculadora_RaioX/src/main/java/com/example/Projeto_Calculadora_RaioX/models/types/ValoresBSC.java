@@ -1,4 +1,4 @@
-package com.example.Projeto_Calculadora_RaioX.Model;
+package com.example.Projeto_Calculadora_RaioX.models.types;
 
 public enum ValoresBSC {
     VALOR_40(40, 1.08),

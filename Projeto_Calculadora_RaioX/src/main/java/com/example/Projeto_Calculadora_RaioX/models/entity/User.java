@@ -20,13 +20,15 @@ public class User {
     private Long id;
 
     @NotBlank(message = "Username is mandatory")
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @NotBlank(message = "Password is mandatory")
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole roles;
 
     public void encodePassword(PasswordEncoder passwordEncoder) {

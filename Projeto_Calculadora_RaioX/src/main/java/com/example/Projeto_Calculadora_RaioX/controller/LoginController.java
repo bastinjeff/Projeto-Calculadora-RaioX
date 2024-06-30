@@ -1,4 +1,4 @@
-package com.example.Projeto_Calculadora_RaioX.Controller;
+package com.example.Projeto_Calculadora_RaioX.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

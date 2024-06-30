@@ -1,4 +1,4 @@
-package com.example.Projeto_Calculadora_RaioX.Model;
+package com.example.Projeto_Calculadora_RaioX.models.types;
 
 public enum Regiao {
         CRANIO_AP("Cranio-AP"),
