@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserDto dto) {
+    public String registerUser(Model model, @ModelAttribute("user") UserDto dto) {
         try{
             dto.setRoles(UserRole.PENDING);
             User user = modelMapper.map(dto, User.class);
@@ -74,7 +74,10 @@ public class UserController {
             userService.saveUser(user);
             return "redirect:/login";
         }catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
+            if(ex.getMessage().toString().contains("ERRO: duplicar valor da chave")) {
+                model.addAttribute("message", "Erro: Username já esta sendo utilizado!");
+            }
+            return "register";
         }
     }
 
