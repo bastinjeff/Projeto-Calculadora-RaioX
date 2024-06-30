@@ -15,15 +15,12 @@ public class HomeControlle {
 
     @GetMapping("/home")
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            boolean isAdmin = authentication.getAuthorities().stream()
-                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-
-            model.addAttribute("username", username);
-            model.addAttribute("isAdmin", isAdmin);
-        }
+        UserController.isLoggedAsAdmin(model);
         return "home"; // Este é o nome do arquivo HTML sem a extensão
+    }
+
+    @GetMapping("/")
+    public String redirectToHome() {
+        return "redirect:/home";
     }
 }

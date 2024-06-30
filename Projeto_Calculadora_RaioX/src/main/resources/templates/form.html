@@ -32,7 +32,7 @@
 </div>
 <div class="container mt-5">
     <div class="centered-form">
-        <form id="calculoForm" action="/calculos/calcular" method="post">
+        <form id="calculoForm" th:action="@{/calculos/calcular}" method="post">
             <div class="form-group row">
                 <label for="comboBox" class="col-sm-4 col-form-label">Região:</label>
                 <div class="col-sm-8">

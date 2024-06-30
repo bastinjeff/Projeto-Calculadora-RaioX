@@ -22,12 +22,37 @@ public class DataLoader implements CommandLineRunner {
         Optional<User> user = userRepository.findByUsername("admin");
         if (user.isEmpty()) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            User master = new User();
+            master.setUsername("master");
+            master.setPassword(passwordEncoder.encode("masterpassword2024"));
+            master.setRoles(UserRole.MASTER);
+
+            System.out.println("Master created.");
+            userRepository.save(master);
+
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("adminpassword"));
+            admin.setPassword(passwordEncoder.encode("adminpassword2024"));
             admin.setRoles(UserRole.ADMIN);
+            System.out.println("Admin created.");
+
             userRepository.save(admin);
-            System.out.println("Admin user created.");
+
+            User newUser = new User();
+            newUser.setUsername("user");
+            newUser.setPassword(passwordEncoder.encode("userpassword2024"));
+            newUser.setRoles(UserRole.USER);
+            System.out.println("User created.");
+
+            userRepository.save(newUser);
+
+            User pending = new User();
+            pending.setUsername("pending");
+            pending.setPassword(passwordEncoder.encode("pending"));
+            pending.setRoles(UserRole.PENDING);
+            System.out.println("Pending created.");
+
+            userRepository.save(pending);
         }
     }
 

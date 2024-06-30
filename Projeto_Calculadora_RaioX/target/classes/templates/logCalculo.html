@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados do Cálculo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header {
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            color: #1E90FF;
+        }
+        .centered-results {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .results-table {
+            margin-top: 20px;
+        }
+        .filter-container {
+            margin: 20px 0;
+        }
+        .filter-regiao{
+            margin-left: -50px;
+        }
+        .filtro-kv{
+            margin-left: 300px;
+        }
+        .filter-kv{
+            margin-top: -36px;
+            margin-left: 820px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div th:replace="Navbar/navbar :: navbar"></div>
+<div class="container mt-4">
+    <div class="header">
+        <h1>Calculos Anteriores</h1>
+    </div>
+    <div class="results-table">
+        <h2 class="text-center mt-5"></h2>
+        <div class="filter-container form-group row">
+            <label for="filter" class="col-sm-2 col-form-label">Filtrar por Região:</label>
+            <div class="col-sm-3 filter-regiao">
+                <input type="text" id="filter" class="form-control" placeholder="Digite a região">
+            </div>
+            <label for="filter-kv" class="col-sm-2 col-form-label filtro-kv">Filtrar por kV:</label>
+            <div class="col-sm-3 filter-kv">
+                <input type="text" id="filter-kv" class="form-control" placeholder="Digite o kV">
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Região</th>
+                <th>kV</th>
+                <th>mAs</th>
+                <th>Espessura</th>
+                <th>ESAK</th>
+                <th>Diferença</th>
+                <th>Rendimento</th>
+                <th>BSC</th>
+            </tr>
+            </thead>
+            <tbody id="calculos-tbody">
+            <tr th:each="calculoAnterior : ${calculos}">
+                <td th:text="${calculoAnterior.id}"></td>
+                <td th:text="${calculoAnterior.regiao}"></td>
+                <td th:text="${calculoAnterior.kv}"></td>
+                <td th:text="${calculoAnterior.mAs}"></td>
+                <td th:text="${calculoAnterior.espessura}"></td>
+                <td th:text="${calculoAnterior.esak}"></td>
+                <td th:text="${calculoAnterior.diferenca}"></td>
+                <td th:text="${calculoAnterior.rendimento}"></td>
+                <td th:text="${calculoAnterior.bsc}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('filter').addEventListener('input', function() {
+        filterTable();
+    });
+
+    document.getElementById('filter-kv').addEventListener('input', function() {
+        filterTable();
+    });
+
+    function filterTable() {
+        var filterRegiao = document.getElementById('filter').value.toLowerCase();
+        var filterKv = document.getElementById('filter-kv').value.toLowerCase();
+        var rows = document.querySelectorAll('#calculos-tbody tr');
+        rows.forEach(function(row) {
+            var regiao = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            var kv = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            if (regiao.includes(filterRegiao) && kv.includes(filterKv)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+</body>
+</html>
