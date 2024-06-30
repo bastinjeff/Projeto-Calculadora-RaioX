@@ -9,7 +9,19 @@
 <div class="" th:replace="Navbar/navbar :: navbar">
     <h1>CalcRaioX</h1>
 </div>
-<h1>Error</h1>
-<p>There was an error processing your request.</p>
+    <div class="container">
+        <h1>Error</h1>
+        <p th:if="${message == null}">There was an error processing your request.</p>
+        <p th:if="${message != null}" th:text="${message}"></p>
+        <div th:if="${message != null and message.toString().contains('Chave não encontrada')}">
+            <h5>Valores possíveis:</h5>
+            <p>40, 50, 60, 70, 80, 90, 100, 110, 120</p>
+        </div>
+        <div th:if="${message != null and message.toString().contains('Chave não encontrada')}" class="d-inline-flex gap-2 mb-5">
+            <a href="/api/calculos/calcular" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">
+                Retry →
+            </a>
+        </div>
+    </div>
 </body>
 </html>

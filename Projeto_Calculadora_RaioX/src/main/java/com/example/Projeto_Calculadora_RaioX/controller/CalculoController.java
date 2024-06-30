@@ -22,28 +22,37 @@ public class CalculoController {
 
     @GetMapping("/calcular")
     public String showForm(Model model) {
-        UserController.isLoggedAsAdmin(model);
-        model.addAttribute("calculo", new Calculo());
-        return "form";
+        try{
+            UserController.isLoggedAsAdmin(model);
+            model.addAttribute("calculo", new Calculo());
+            return "form";
+        }catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/calcular")
     public String calcular(@ModelAttribute Calculo calculo, Model model) {
+        UserController.isLoggedAsAdmin(model);
         try {
+            logger.info("Starting calculation for: " + calculo);
             calculo.Calcular();
 
+            logger.info("Calculation completed, saving to repository.");
             calculoRepository.save(calculo);
 
             List<Calculo> calculos = calculoRepository.findAll();
 
             model.addAttribute("calculo", calculo);
             model.addAttribute("calculos", calculos);
-            UserController.isLoggedAsAdmin(model);
+
+            logger.info("Calculation and data handling successful, returning 'resultados' view.");
 
             return "resultados";
         }catch (Exception e) {
             logger.error("Erro ao calcular os valores: " + e.getMessage(), e);
-            model.addAttribute("error", "Ocorreu um erro ao processar o cálculo. Por favor, tente novamente.");
+            model.addAttribute("message", e.getMessage());
             return "error";
         }
 
@@ -51,19 +60,29 @@ public class CalculoController {
 
     @GetMapping("/logCalculo")
     public String showLogCalculo (Model model,Calculo calculo){
-        List<Calculo> calculos = calculoRepository.findAll();
-        model.addAttribute("calculos", calculos);
         UserController.isLoggedAsAdmin(model);
-        return "logCalculo";
+        try{
+            List<Calculo> calculos = calculoRepository.findAll();
+            model.addAttribute("calculos", calculos);
+            return "logCalculo";
+        }catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("jafeitos")
     public String showResultados(Model model){
-
-        List<Calculo> calculos = calculoRepository.findAll();
-        model.addAttribute("calculos", calculos);
         UserController.isLoggedAsAdmin(model);
+        try {
+            List<Calculo> calculos = calculoRepository.findAll();
+            model.addAttribute("calculos", calculos);
+            UserController.isLoggedAsAdmin(model);
 
-        return "resultados";
+            return "resultados";
+        }catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 }
