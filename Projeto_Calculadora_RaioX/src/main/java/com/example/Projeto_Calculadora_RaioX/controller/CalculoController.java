@@ -1,12 +1,10 @@
-package com.example.Projeto_Calculadora_RaioX.Controller;
+package com.example.Projeto_Calculadora_RaioX.controller;
 
-import com.example.Projeto_Calculadora_RaioX.Model.Calculo;
-import com.example.Projeto_Calculadora_RaioX.Repository.CalculoRepository;
+import com.example.Projeto_Calculadora_RaioX.models.entity.Calculo;
+import com.example.Projeto_Calculadora_RaioX.repository.CalculoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

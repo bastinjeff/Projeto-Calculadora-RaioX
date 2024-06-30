@@ -1,9 +1,8 @@
-package com.example.Projeto_Calculadora_RaioX.Model;
+package com.example.Projeto_Calculadora_RaioX.models.entity;
 
+import com.example.Projeto_Calculadora_RaioX.models.types.ValoresBSC;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data

@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             User master = new User();
             master.setUsername("master");
-            master.setPassword(passwordEncoder.encode("masterpassword2024"));
+            master.setPassword(passwordEncoder.encode("master2024"));
             master.setRoles(UserRole.MASTER);
 
             System.out.println("Master created.");
@@ -32,7 +32,7 @@ public class DataLoader implements CommandLineRunner {
 
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("adminpassword2024"));
+            admin.setPassword(passwordEncoder.encode("admin2024"));
             admin.setRoles(UserRole.ADMIN);
             System.out.println("Admin created.");
 
@@ -40,7 +40,7 @@ public class DataLoader implements CommandLineRunner {
 
             User newUser = new User();
             newUser.setUsername("user");
-            newUser.setPassword(passwordEncoder.encode("userpassword2024"));
+            newUser.setPassword(passwordEncoder.encode("user2024"));
             newUser.setRoles(UserRole.USER);
             System.out.println("User created.");
 
@@ -48,7 +48,7 @@ public class DataLoader implements CommandLineRunner {
 
             User pending = new User();
             pending.setUsername("pending");
-            pending.setPassword(passwordEncoder.encode("pending"));
+            pending.setPassword(passwordEncoder.encode("pending2024"));
             pending.setRoles(UserRole.PENDING);
             System.out.println("Pending created.");
 
