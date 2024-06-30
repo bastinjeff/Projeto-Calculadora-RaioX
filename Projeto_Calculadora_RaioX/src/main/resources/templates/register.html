@@ -141,7 +141,9 @@
             <div class="modal-header p-5 pb-4 border-bottom-0">
                 <h1 class="fw-bold mb-0 fs-2">Sign up</h1>
             </div>
-
+            <div th:if="${message != null}" class="alert alert-danger" role="alert">
+                <p class="m-0 p-0" th:text="${message}"></p>
+            </div>
             <div class="modal-body p-5 pt-0">
                 <form th:action="@{/register}" method="post">
                     <div class="form-floating mb-3">

@@ -10,7 +10,12 @@ public class HomeControlle {
     @GetMapping("/home")
     public String index(Model model) {
         UserController.isLoggedAsAdmin(model);
-        return "home";
+        try{
+            return "home";
+        }catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/")
