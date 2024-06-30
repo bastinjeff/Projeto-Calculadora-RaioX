@@ -10,7 +10,7 @@ public class HomeControlle {
     @GetMapping("/home")
     public String index(Model model) {
         UserController.isLoggedAsAdmin(model);
-        return "home"; // Este é o nome do arquivo HTML sem a extensão
+        return "home";
     }
 
     @GetMapping("/")
