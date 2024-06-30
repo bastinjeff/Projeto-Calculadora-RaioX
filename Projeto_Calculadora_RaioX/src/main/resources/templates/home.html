@@ -2,23 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Sakai - Home</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .background {
+            width: 100vw;
+            height: 91vh;
+            background-image: url("https://i0.wp.com/southernhoopsreport.com/wp-content/uploads/2018/11/156689-download-white-gradient-background-2447x1468-1080p.jpg?ssl=1");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+    </style>
 </head>
 <body>
 <div class="" th:replace="Navbar/navbar :: navbar">
     <h1>CalcRaioX</h1>
 </div>
-<div class="content">
-    <h1>Welcome</h1>
-    <div class="container">
-        <h2>Projeto de Cálculo de Métricas e Raio X</h2>
-        <p>Este projeto foi desenvolvido pelos alunos ... e Professor ... com o intuito de calcular métricas de raio X.</p>
-        <p>Logout:</p>
-        <form th:action="@{/logout}" method="post">
-            <button class="btn btn-primary" type="submit">Logout</button>
-        </form>
+<div class="background">
+    <div class="container mb-5">
+        <div class="p-5 text-center bg-body-tertiary rounded-3">
+            <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"></use></svg>
+            <h1 class="text-body-emphasis">Welcome, <span th:text="${username}"></span>.</h1>
+            <p class="col-lg-8 mx-auto fs-5 text-muted">
+                Este projeto foi desenvolvido pelos alunos ... e Professor ... com o intuito de calcular métricas de raio X.
+            </p>
+            <div class="d-inline-flex gap-2 mb-5">
+                <a href="/api/calculos/calcular" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">
+                    Get started →
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

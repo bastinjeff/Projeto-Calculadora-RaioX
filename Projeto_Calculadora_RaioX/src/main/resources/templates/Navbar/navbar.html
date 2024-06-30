@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <style>
-    .navbar-custom{
-      background-color: ;
-    }
-  </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-custom" th:fragment="navbar">
-  <a class="navbar-brand" href="#">Calculadora Raio-X</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link" href="/api/home">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/api/calculos/calcular">Calculadora</a>
-      <a class="nav-item nav-link" href="/api/calculos/logCalculo">Log de cálculos</a>
+<div class="fixed-on-top" th:fragment="navbar">
+  <header class="px-5 d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom bg-dark">
+    <a href="/api/home" class="d-inline-flex link-body-emphasis text-decoration-none">
+      <img src="https://sakai.primeng.org/assets/layout/images/logo-white.svg" alt="" width="72" height="40">
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="/api/home" class="nav-link px-2 link-light text-white">Home</a></li>
+      <li><a href="/api/calculos/calcular" class="nav-link px-2 link-light text-white">Calculator</a></li>
+      <li><a href="/api/calculos/logCalculo" class="nav-link px-2 link-light text-white">Calculator History</a></li>
       <div th:if="${isAdmin or isMaster}">
-        <a class="nav-item nav-link" href="/api/user-list">Painel Administrativo</a>
+        <li><a href="/api/user-list" class="nav-link px-2 link-light text-white">Admin Panel</a></li>
       </div>
-    </div>
-  </div>
-</nav>
+    </ul>
+    <form class="d-flex flex-row" th:action="@{/logout}" method="post">
+      <span class="nav-link px-2 link-light text-white mx-2">User: <span th:text="${username}"></span></span>
+      <button class="btn btn-primary" type="submit">Logout</button>
+    </form>
+  </header>
+</div>
 </body>
 </html>
