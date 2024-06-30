@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados do Cálculo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header {
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            color: #17a2b8;
+        }
+        .centered-results {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .results-table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="Navbar/navbar :: navbar"></div>
+<div class="header">
+    <h1>Resultados do Cálculo</h1>
+</div>
+<div class="container mt-5">
+    <div class="centered-results">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Parâmetro</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>ESAK</td>
+                <td th:text="${calculo.esak}"></td>
+            </tr>
+            <tr>
+                <td>Diferença</td>
+                <td th:text="${calculo.diferenca}"></td>
+            </tr>
+            <tr>
+                <td>Rendimento</td>
+                <td th:text="${calculo.rendimento}"></td>
+            </tr>
+            <tr>
+                <td>BSC</td>
+                <td th:text="${calculo.bsc}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center mt-4">
+            <a href="/calculos/calcular" class="btn btn-info">Novo Cálculo</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
