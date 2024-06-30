@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .navbar-custom{
+      background-color: ;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-custom" th:fragment="navbar">
+  <a class="navbar-brand" href="#">Calculadora Raio-X</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto">
+      <a class="nav-item nav-link" href="/api/home">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/api/calculos/calcular">Calculadora</a>
+      <a class="nav-item nav-link" href="/api/calculos/logCalculo">Log de cálculos</a>
+      <div th:if="${isAdmin or isMaster}">
+        <a class="nav-item nav-link" href="/api/user-list">Painel Administrativo</a>
+      </div>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
