@@ -11,6 +11,6 @@ public class CustomErrorController implements ErrorController {
 
     @GetMapping(PATH)
     public String handleError() {
-        return "error"; // nome do template de erro
+        return "error";
     }
 }

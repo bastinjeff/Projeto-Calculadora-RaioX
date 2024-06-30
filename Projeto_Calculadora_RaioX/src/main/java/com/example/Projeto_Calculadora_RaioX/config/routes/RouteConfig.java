@@ -11,5 +11,10 @@ public class RouteConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/register").setViewName("register");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/error").setViewName("error");
+        registry.addViewController("/form").setViewName("form");
+        registry.addViewController("/logCalculo").setViewName("logCalculo");
+        registry.addViewController("/resultados").setViewName("resultados");
+        registry.addViewController("/user-list").setViewName("user-list");
     }
 }
