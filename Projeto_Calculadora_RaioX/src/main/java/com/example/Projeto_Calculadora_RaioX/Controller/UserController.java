@@ -5,10 +5,8 @@ import com.example.Projeto_Calculadora_RaioX.models.entity.User;
 import com.example.Projeto_Calculadora_RaioX.models.types.UserRole;
 import com.example.Projeto_Calculadora_RaioX.service.UserService;
 import org.apache.commons.lang3.EnumUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,6 +68,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") UserDto dto) {
         try{
+            dto.setRole(UserRole.PENDING);
             User user = modelMapper.map(dto, User.class);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.saveUser(user);
