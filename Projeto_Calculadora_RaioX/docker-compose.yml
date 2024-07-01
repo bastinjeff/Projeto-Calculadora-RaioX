@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: defaultdb
+      MYSQL_USER: avnadmin
+      MYSQL_PASSWORD: AVNS_UoNpB7AQG8ajFwibAz_
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: trabalhofinal
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://avnadmin:AVNS_UoNpB7AQG8ajFwibAz_@raiox-projeto-raiox.j.aivencloud.com:16785/defaultdb?ssl-mode=REQUIRED
+      SPRING_DATASOURCE_USERNAME: avnadmin
+      SPRING_DATASOURCE_PASSWORD: AVNS_UoNpB7AQG8ajFwibAz_
+
+volumes:
+  mysql-data:
+
+networks:
+  my_network:
+    driver: bridge
