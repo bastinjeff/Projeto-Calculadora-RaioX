@@ -8,12 +8,15 @@
 Esse tutorial irá considerar que o projeto springboot está compilando e minimamente funcional. Muitas vezes o código pode buildar mas, ao ocorrer erros em tempo de execução, ele trava o servidor e torna dificil debugar.
 
 ### Preparativos prévios
+
 ####Criação de Conta Aiven
 Aiven é uma plataforma de host de banco de dados em nuvem. É possivel criar uma conta grátis ou paga na plataforma para hostear o banco de dados.
 Com o banco de dados criado, sera possivel resgatar um endereço de acesso remoto que deverá ser aplicado no application.properties do projeto.
+
 ####Criação de conta Oracle Cloud
 Oracle Cloud é uma plataforma de serviços em nuvem semelhante à AWS que permite o host gratuito ou pago de um servidor com toda a estrutura e ferramentas necessárias para o mesmo.
 A plataforma irá hostear o docker e irá proporcionar as ferramentas de kubernetes e acesso via IP externo para host do servidor springboot.
+
 #### Criação de Arquivos de Configuração
 ##### Dockerfile
 Para que a subida do docker no servidor seja possível é necessário um arquivo chamado **Dockerfile**, que será utilizado para armazenar o script de execução do build do docker. Um exemplo de Dockerfile básico pode ser visto a seguir:
