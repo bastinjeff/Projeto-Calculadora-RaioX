@@ -72,11 +72,11 @@ O primeiro comando inicia o processo de login. O username deve ser uma combinaç
 A password é o token de autentiacação que deve ser gerado na tela de tenant, e que sera usado como senha para integrações do tenant
 ### Fluxo de subida manual
 O fluxo a seguir apresenta os passos necessarios para realizar a subida manual do servidor springboot buildado em docker com banco de dados em nuvem.
-#### 1-Buildar a imagem Docker
+#### 1 - Buildar a imagem Docker
 Abra o terminal de comando na mesma pasta em que está presente o Dockerfile e realize o seguinte comando:
      docker build -t 'NomeDaImagem' .
 Isso fará com que o Docker crie e armazene uma imagem criada a partir da build do projeto.
-#### Preparar o push
+#### 2 - Preparar o push
 Para que o arquivo gerado pelo docker chegue ao Oracle Cloud, é necessario preparar o push. Para isso, é iniciado com o seguinte comando:
 
     docker tag 'NomeDaImagemDocker' RegiaoOracle/Osn/NomeRepositorio:Versao
@@ -87,8 +87,7 @@ Em que:
 - Osn: Significa "Object storage namespace" e pode ser encontrado na pagina de detalhes do tenant
 -NomeRepositorio: Sera o nome do repositorio na Oracle Cloud. Se nao houver um, ele sera criado
 -Versao: Um nome que pode ser dado para referenciar a versao da imagem especifica dentro do repositorio
-
-#### Realizar o push
+#### 3 - Realizar o push
 Após o comando anterior for feito, é necessario apenas realizar um push com o seguinte comando:
 
     docker push  RegiaoOracle/Osn/NomeRepositorio:Versao
@@ -96,4 +95,56 @@ Após o comando anterior for feito, é necessario apenas realizar um push com o 
 Uma mensagem de sucesso ira susceder, e ja sera possivel checar a imagem no Oracle Cloud.
 
 *Inserir imagem da imagem*
+#### Criação de arquivos de configuração do kubernetes
+##### Kubeconfig
+Após o envio da imagem, é necessario configurar o kubernetes. Para isso, é utilizado o console do kubernetes interno oferecido pela Oracle. Ele pode ser acessado diretamente na tela do kubernetes criado anteriormente.
+*Inserir Imagem do Kubernetes*
+Ele irá solicitar que o primeiro comando a ser realizado seja o de criação de configurações básicas. Aceite a sugestão e realize o comando como foi escrito, e um arquivo base de configurações vai ser automaticamente gerado.
+##### Deployment.yaml
+O Deployment.yaml é um dos arquivos necessários para a subida correta do kubernetes utilizando a imagem docker. Um novo arquivo deve ser criado através do console e editado para conter um conjunto de informações semelhante ao exemplo a seguir:
+
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: raiox
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: raiox
+      template:
+        metadata:
+          labels:
+            app: raiox
+        spec:
+          containers:
+          - name: raiox
+            image: RegiaoOracle/Osn/NomeRepositorio:Versao
+            ports:
+            - containerPort: 80
+
+Os significados são iguais aos anteriores, e podem ser consultados acima.
+Após criar o arquivo, é necessari aplicar a configuração, que é realizado pelo seguinte comando:
+
+    kubectl apply -f deployment.yaml
+##### Service.yaml
+O arquivo service.yaml irá configurar o LoadBalancer, ferramenta que lida com as requisições para a aplicação. Um exemplo de arquivo pode ser visualizado a seguir:
+
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: raiox
+    spec:
+      type: LoadBalancer
+      selector:
+        app: raiox
+      ports:
+        - protocol: TCP
+          port: 8080
+          targetPort: 8080
+Nesse caso, eu abri o acesso ao servidor através da porta 8080
+**OBS**: Os campos "name" e "app" devem ser os mesmos configurados no arquivo deployment.yaml
+E então, novamente é necessario aplicar o novo arquivo de configuração através do comando:
+
+    kubectl apply -f service.yaml
 
