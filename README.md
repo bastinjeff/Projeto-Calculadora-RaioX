@@ -147,4 +147,22 @@ Nesse caso, eu abri o acesso ao servidor através da porta 8080
 E então, novamente é necessario aplicar o novo arquivo de configuração através do comando:
 
     kubectl apply -f service.yaml
+#### Conclusão
+Pronto! Se todas as etapas foram realizadas com sucesso, o servidor está em processo de montagem e subida do pod kubernetes, e estará disponível para uso assim que terminar. Para auxiliar na descoberta de detalhes extras do servidor, a seguir estarão comandos uteis:
+##### Ver Status dos Pods
+Os pods precisam estar no ar para que o servidor esteja funcional. Para checar o status dos mesmos o seguinte comando pode ser realizado:
 
+    kubectl get pods
+##### Descobrir o IP publico do pod
+Para acessar o servidor é necessario informar o IP publico oferecido pelo pod. Esse IP pode ser descoberto através do seguinte comando:
+
+    kubectl get services
+##### Restaurar pod
+Em algumas ocasiões, pode ser necessario reiniciar o servidor. Existem várias maneiras de realizar isso, mas a maneira mais simples é:
+
+    kubectl rollout restart deployment NomeNoDeployment
+Em que:
+- NomeNoDeployment: é o nome dado ao servidor no arquivo Deployment.yaml (campo app:)
+
+### Considerações Finais
+Esse trecho do readme conteve o tutorial de subida manual de um servidor springboot através de docker no host Oracle Cloud. É possivel automatizar o processo utilizando outras ferramentas e estratégias. O troubleshooting dos problemas pode ser realizado pesquisando os erros que aparecem em tela.
