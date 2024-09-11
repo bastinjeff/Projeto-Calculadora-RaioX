@@ -147,6 +147,122 @@ Nesse caso, eu abri o acesso ao servidor através da porta 8080
 E então, novamente é necessario aplicar o novo arquivo de configuração através do comando:
 
     kubectl apply -f service.yaml
+
+### Autenticação
+
+A seguir está a definição da classe User utilizada para representar os usuários no sistema:
+```
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "Username is mandatory")
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @NotBlank(message = "Password is mandatory")
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole roles;
+
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
+}
+```
+
+#### Anotações Utilizadas:
+- @Getter e @Setter: Gera automaticamente os métodos getter e setter para os campos da classe.
+- @NoArgsConstructor: Gera um construtor sem argumentos.
+- @Entity: Indica que esta classe é uma entidade JPA.
+- @Table(name = "users"): Especifica a tabela do banco de dados que esta entidade será mapeada.
+- @Id: Denota o campo id como a chave primária.
+- @GeneratedValue(strategy = GenerationType.IDENTITY): Indica que o valor do id será gerado automaticamente pelo banco de dados.
+- @NotBlank: Valida que os campos username e password não podem estar vazios.
+- @Column: Especifica detalhes de mapeamento da coluna, como unique, nullable.
+- @Enumerated(EnumType.STRING): Armazena o valor do enum UserRole como uma String no banco de dados.
+Método:
+```
+public void encodePassword(PasswordEncoder passwordEncoder): Método para codificar a senha utilizando um PasswordEncoder.
+Data Transfer Object (DTO)
+A classe UserDto é utilizada para transferir dados do usuário entre as camadas da aplicação:
+@Data
+public class UserDto {
+    private String username;
+    private String password;
+    private UserRole roles;
+}
+```
+
+#### Enumeração UserRole
+A enumeração UserRole é utilizada para definir os diferentes papéis que um usuário pode ter no sistema:
+```
+public enum UserRole {
+    ADMIN,
+    PENDING,
+    USER,
+    MASTER
+}
+```
+
+#### Anotações Utilizadas:
+- @Data: Gera automaticamente os métodos getter, setter, equals, hashCode, e toString.
+#### Configuração de Segurança
+A configuração de segurança é definida na classe de configuração Spring Security:
+```
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .authorizeHttpRequests((requests) -> requests
+            .requestMatchers("/login", "/register").permitAll()
+            .requestMatchers("/home", "/calculos/calcular", "/calculos/logCalculo", "/calculos/resultados").hasAnyRole("ADMIN", "USER", "MASTER")
+            .requestMatchers("/user-list").hasAnyRole("ADMIN", "MASTER")
+            .anyRequest().authenticated()
+        )
+        .formLogin((form) -> form
+            .loginPage("/login")
+            .failureHandler(customAuthenticationFailureHandler)
+            .defaultSuccessUrl("/home", true)
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
+        );
+
+    return http.build();
+}
+```
+#### Configuração de Autorização:
+- authorizeHttpRequests: Define as regras de autorização para as requisições.
+- requestMatchers("/login", "/register").permitAll(): Permite acesso público às páginas de login e registro.
+- requestMatchers("/home", "/calculos/calcular", "/calculos/logCalculo", "/calculos/resultados").hasAnyRole("ADMIN", "USER", "MASTER"): Permite acesso às páginas especificadas apenas para usuários com as roles ADMIN, USER ou MASTER.
+- requestMatchers("/user-list").hasAnyRole("ADMIN", "MASTER"): Permite acesso à lista de usuários apenas para ADMIN ou MASTER.
+- anyRequest().authenticated(): Requer autenticação para qualquer outra requisição.
+#### Configuração de Login e Logout:
+- formLogin: Configura o login baseado em formulário.
+- loginPage("/login"): Especifica a página de login personalizada.
+- failureHandler(customAuthenticationFailureHandler): Define um handler personalizado para falhas de autenticação.
+- defaultSuccessUrl("/home", true): Redireciona para a página inicial após o login bem-sucedido.
+- permitAll(): Permite acesso à página de login para todos.
+- logout: Configura o logout.
+- logoutUrl("/logout"): Especifica a URL de logout.
+- logoutSuccessUrl("/login"): Redireciona para a página de login após o logout.
+- invalidateHttpSession(true): Invalida a sessão HTTP.
+- deleteCookies("JSESSIONID"): Exclui o cookie de sessão.
+
 #### Conclusão
 Pronto! Se todas as etapas foram realizadas com sucesso, o servidor está em processo de montagem e subida do pod kubernetes, e estará disponível para uso assim que terminar. Para auxiliar na descoberta de detalhes extras do servidor, a seguir estarão comandos uteis:
 ##### Ver Status dos Pods
