@@ -43,16 +43,16 @@
             </thead>
             <tbody>
             <tr>
-                <td>ESAK</td>
-                <td th:text="${calculo.esak}"></td>
+                <td>mGy (ESAK)</td>
+                <td th:text="${T(java.lang.String).format('%.2f', calculo.esak)}"></td>
             </tr>
             <tr>
                 <td>Diferença</td>
-                <td th:text="${calculo.diferenca}"></td>
+                <td th:text="${T(java.lang.String).format('%.2f', calculo.diferenca * 100) + '%'}"></td>
             </tr>
             <tr>
                 <td>Rendimento</td>
-                <td th:text="${calculo.rendimento}"></td>
+                <td th:text="${T(java.lang.String).format('%.3f', calculo.rendimento)}"></td>
             </tr>
             <tr>
                 <td>BSC</td>
