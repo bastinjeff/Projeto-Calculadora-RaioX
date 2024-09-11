@@ -81,9 +81,9 @@
                 <td th:text="${calculoAnterior.kv}"></td>
                 <td th:text="${calculoAnterior.mAs}"></td>
                 <td th:text="${calculoAnterior.espessura}"></td>
-                <td th:text="${calculoAnterior.esak}"></td>
-                <td th:text="${calculoAnterior.diferenca}"></td>
-                <td th:text="${calculoAnterior.rendimento}"></td>
+                <td th:text="${T(java.lang.String).format('%.2f', calculoAnterior.esak)}"></td>
+                <td th:text="${T(java.lang.String).format('%.2f', calculoAnterior.diferenca * 100) + '%'}"></td>
+                <td th:text="${T(java.lang.String).format('%.3f', calculoAnterior.rendimento)}"></td>
                 <td th:text="${calculoAnterior.bsc}"></td>
             </tr>
             </tbody>
